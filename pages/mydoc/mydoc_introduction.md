@@ -31,7 +31,7 @@ To get started, see [Getting Started][index].
 
 <script src="https://utteranc.es/client.js"
         repo="jongnam-kim/jongnam-kim.github.io"
-        issue-term="https://jongnam-kim.github.io/index.html"
+        issue-term="pathname"
         theme="github-light"
         crossorigin="anonymous"
         async>
