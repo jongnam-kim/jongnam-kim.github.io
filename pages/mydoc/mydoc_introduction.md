@@ -30,7 +30,7 @@ To get started, see [Getting Started][index].
 {% include links.html %}
 
 <script src="https://utteranc.es/client.js"
-        repo="jongnam-kim.github.io"
+        repo="jongnam-kim/jongnam-kim.github.io"
         issue-term="https://jongnam-kim.github.io/index.html"
         theme="github-light"
         crossorigin="anonymous"
