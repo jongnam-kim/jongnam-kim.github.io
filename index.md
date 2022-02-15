@@ -14,7 +14,7 @@ summary: These brief instructions will help you get started quickly with the the
 Follow these instructions to build the theme.
 
 
-<embed src='https://www.pythonanywhere.com/user/ohmybike/files/home/ohmybike/wikidocs/sample.pdf' />
+<embed src="https://www.pythonanywhere.com/user/ohmybike/files/home/ohmybike/wikidocs/sample.pdf" type="application/pdf" width="100%" height="800px" />
 
 ### 1. Download the theme
 
