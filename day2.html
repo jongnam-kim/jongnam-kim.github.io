@@ -183,16 +183,6 @@
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">0. 실습 프로젝트 개요</a></li>
-
-
-
-
-
-
-
-
-
 </ul>
 
     </div>
@@ -1001,6 +991,15 @@ select_query(“select * from COMPANY where corp_code in (‘’, ‘’)”)</p
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00411835 2015 12 20160411002284
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00411835 2014 12 20150401001558
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00411835 2013 12 20140410000887
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>00585583 2022 12 20230413000799
+</pre></div>
+</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">10</span>
@@ -1010,34 +1009,63 @@ select_query(“select * from COMPANY where corp_code in (‘’, ‘’)”)</p
 <span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="k">if</span> <span class="n">tmp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>      
 <span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">df_fs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_fs</span><span class="p">,</span> <span class="n">tmp</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nn">Cell In[17], line 10,</span> in <span class="ni">parse_report</span><span class="nt">(corp_code, year, month, acc_mt, rcept_no)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">soup</span> <span class="o">=</span> <span class="n">get_audit_soup</span><span class="p">(</span><span class="n">rcept_no</span><span class="p">)</span>
+<span class="nn">Cell In[17], line 7,</span> in <span class="ni">parse_report</span><span class="nt">(corp_code, year, month, acc_mt, rcept_no)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">re</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="n">corp_code</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">rcept_no</span><span class="p">)</span>  
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">soup</span> <span class="o">=</span> <span class="n">get_audit_soup</span><span class="p">(</span><span class="n">rcept_no</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># acode가 숫자4자리 이상인 &lt;te&gt; 구문만 선택 (자본변동표를 제외시키기 위함)    </span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;te&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;acode&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^[0-9]{4,}$&#39;</span><span class="p">)})</span>         
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="c1"># paragraphs = soup.findAll(&#39;p&#39;)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     
-<span class="g g-Whitespace">     </span><span class="mi">13</span>   
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># 재무상태표, 손익계산서, 현금흐름표        </span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;corp_code&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;acc_mt&#39;</span><span class="p">,</span><span class="s1">&#39;rcept_no&#39;</span><span class="p">,</span><span class="s1">&#39;fas&#39;</span><span class="p">,</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;acct_nm&#39;</span><span class="p">,</span><span class="s1">&#39;acct_cd&#39;</span><span class="p">,</span><span class="s1">&#39;acct_lev&#39;</span><span class="p">,</span><span class="s1">&#39;amt&#39;</span><span class="p">,</span><span class="s1">&#39;prev_amt&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;te&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;acode&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;^[0-9]{4,}$&#39;</span><span class="p">)})</span>         
 
-<span class="nn">File ~\anaconda3\lib\site-packages\bs4\element.py:1892,</span> in <span class="ni">Tag.find_all</span><span class="nt">(self, name, attrs, recursive, string, limit, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1890</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">recursive</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1891</span>     <span class="n">generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span>
-<span class="ne">-&gt; </span><span class="mi">1892</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_all</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">generator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="nn">Cell In[15], line 26,</span> in <span class="ni">get_audit_soup</span><span class="nt">(rcept_no)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="n">xmlfile_objs</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span> <span class="n">zipfile_obj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zipfile_obj</span><span class="o">.</span><span class="n">namelist</span><span class="p">()}</span>        
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">xml_str</span> <span class="o">=</span> <span class="n">xmlfile_objs</span><span class="p">[</span><span class="n">rcept_no</span><span class="o">+</span><span class="s1">&#39;_00760.xml&#39;</span><span class="p">]</span> <span class="c1"># 00760: 감사보고서</span>
+<span class="ne">---&gt; </span><span class="mi">26</span> <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">xml_str</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="k">return</span> <span class="n">soup</span>
 
-<span class="nn">File ~\anaconda3\lib\site-packages\bs4\element.py:823,</span> in <span class="ni">PageElement._find_all</span><span class="nt">(self, name, attrs, string, limit, generator, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">821</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">822</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">823</span>         <span class="n">i</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">824</span>     <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">825</span>         <span class="k">break</span>
+<span class="nn">File ~\anaconda3\lib\site-packages\bs4\__init__.py:333,</span> in <span class="ni">BeautifulSoup.__init__</span><span class="nt">(self, markup, features, builder, parse_only, from_encoding, exclude_encodings, element_classes, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">331</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">initialize_soup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">332</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">333</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_feed</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">334</span>     <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span>     <span class="k">break</span>
 
-<span class="nn">File ~\anaconda3\lib\site-packages\bs4\element.py:1917,</span> in <span class="ni">Tag.descendants</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1915</span> <span class="n">stopNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_descendant</span><span class="p">()</span><span class="o">.</span><span class="n">next_element</span>
-<span class="g g-Whitespace">   </span><span class="mi">1916</span> <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="ne">-&gt; </span><span class="mi">1917</span> <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">stopNode</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1918</span>     <span class="k">yield</span> <span class="n">current</span>
-<span class="g g-Whitespace">   </span><span class="mi">1919</span>     <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next_element</span>
+<span class="nn">File ~\anaconda3\lib\site-packages\bs4\__init__.py:451,</span> in <span class="ni">BeautifulSoup._feed</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span> <span class="c1"># Convert the document to Unicode.</span>
+<span class="g g-Whitespace">    </span><span class="mi">449</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">451</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">markup</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">452</span> <span class="c1"># Close out any unfinished strings and close all the open tags.</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span> <span class="bp">self</span><span class="o">.</span><span class="n">endData</span><span class="p">()</span>
+
+<span class="nn">File ~\anaconda3\lib\site-packages\bs4\builder\_lxml.py:378,</span> in <span class="ni">LXMLTreeBuilder.feed</span><span class="nt">(self, markup)</span>
+<span class="g g-Whitespace">    </span><span class="mi">376</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">377</span>     <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser_for</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">378</span>     <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">markup</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">379</span>     <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">380</span> <span class="k">except</span> <span class="p">(</span><span class="ne">UnicodeDecodeError</span><span class="p">,</span> <span class="ne">LookupError</span><span class="p">,</span> <span class="n">etree</span><span class="o">.</span><span class="n">ParserError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+<span class="nn">File src/lxml/parser.pxi:1256,</span> in <span class="ni">lxml.etree._FeedParser.feed</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/parser.pxi:1376,</span> in <span class="ni">lxml.etree._FeedParser.feed</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/parsertarget.pxi:168,</span> in <span class="ni">lxml.etree._TargetParserContext._handleParseResult</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/parsertarget.pxi:156,</span> in <span class="ni">lxml.etree._TargetParserContext._handleParseResult</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/etree.pyx:333,</span> in <span class="ni">lxml.etree._ExceptionContext._raise_if_stored</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/saxparser.pxi:443,</span> in <span class="ni">lxml.etree._handleSaxTargetStartNoNs</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/saxparser.pxi:458,</span> in <span class="ni">lxml.etree._callTargetSaxStart</span><span class="nt">()</span>
+
+<span class="nn">File src/lxml/parsertarget.pxi:94,</span> in <span class="ni">lxml.etree._PythonSaxParserTarget._handleSaxStart</span><span class="nt">()</span>
+
+<span class="nn">File ~\anaconda3\lib\site-packages\bs4\builder\_lxml.py:243,</span> in <span class="ni">LXMLTreeBuilderForXML.start</span><span class="nt">(self, name, attrs, nsmap)</span>
+<span class="g g-Whitespace">    </span><span class="mi">240</span> <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span>     <span class="bp">self</span><span class="o">.</span><span class="n">nsmaps</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_NSMAPS_INVERTED</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">243</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">nsmap</span><span class="o">=</span><span class="p">{}):</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span>     <span class="c1"># Make sure attrs is a mutable dict--lxml may send an immutable dictproxy.</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span>     <span class="n">nsprefix</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
